@@ -1,4 +1,5 @@
 #include "Matchmaking.hpp"
+#include <iostream>
 
 Matchmaking::Matchmaking(){
     this->size = 0;
@@ -94,7 +95,11 @@ Player* Matchmaking::merge(Player arr1[], int n1, Player arr2[], int n2){
 }
 
 Player* Matchmaking::mergeSort(Player arr[], int n){
-    if (n <= 1){
+    if (n <= 0){
+        return nullptr;
+    }
+
+    if (n == 1){
         Player* single = new Player[1];
         single[0] = arr[0];
         return single;
@@ -158,3 +163,29 @@ Player* Matchmaking::formGroup(int groupSize, int delta, int* n){
     return nullptr;
 }
 
+Player* Matchmaking::getWaitingPlayers(int* n){
+    if (this->size == 0) {
+        *n = 0;
+        return nullptr;
+    }
+    *n = this->size;
+    Player* copy = new Player[this->size];
+    for (int i = 0; i < this->size; i++) {
+        copy[i] = this->players[i];
+    }
+    return copy;
+}
+
+void Matchmaking::printWaitingPlayers() {
+    std::cout << "Waiting Players:" << std::endl;
+    if (this->size == 0) {
+        std::cout << "(empty)" << std::endl;
+        return;
+    }
+    for (int i = 0; i < this->size; i++) {
+        std::cout << "[" << this->players[i].getId() << " | " 
+                  << this->players[i].getName() << " | " 
+                  << this->players[i].getScore() << " | " 
+                  << this->players[i].getTimestamp() << "]" << std::endl;
+    }
+}
