@@ -28,33 +28,33 @@ void testFuncional() {
     matchmaking->insert(Player(3, "Carla", 1000, 1));
     matchmaking->insert(Player(4, "Diego", 900, 4));
 
-    std::cout << "--- Estado Inicial (Apos Insercoes) ---" << std::endl;
+    std::cout << "\n--- Estado Inicial (Apos Insercoes) ---" << std::endl;
     matchmaking->printWaitingPlayers();
 
     // 2. Teste de Ordenação com Empate
     // Esperado: Bruno(900,2), Diego(900,4), Carla(1000,1), Ana(1000,5)
     matchmaking->sortByScoreMerge();
-    std::cout << "--- Apos Merge Sort (Criterio: Score, entao Timestamp) ---" << std::endl;
+    std::cout << "\n--- Apos Merge Sort (Criterio: Score, entao Timestamp) ---" << std::endl;
     matchmaking->printWaitingPlayers();
 
     // 3. Formação de Grupo - Falha
     int n;
     Player* g1 = matchmaking->formGroup(3, 50, &n);
-    std::cout << "--- Tentativa de Grupo (3 jogadores, delta 50) ---" << std::endl;
+    std::cout << "\n--- Tentativa de Grupo (3 jogadores, delta 50) ---" << std::endl;
     imprimirELiberar(g1, n, "Resultado do Grupo");
 
     // 4. Formação de Grupo - Sucesso
     // O primeiro grupo válido de 2 jogadores com delta 10 (Bruno e Diego)
     Player* g2 = matchmaking->formGroup(2, 10, &n);
-    std::cout << "--- Tentativa de Grupo (2 jogadores, delta 10) ---" << std::endl;
+    std::cout << "\n--- Tentativa de Grupo (2 jogadores, delta 10) ---" << std::endl;
     imprimirELiberar(g2, n, "Resultado do Grupo");
 
-    std::cout << "--- Fila apos remocao do grupo formado ---" << std::endl;
+    std::cout << "\n--- Fila apos remocao do grupo formado ---" << std::endl;
     matchmaking->printWaitingPlayers();
 
     // 5. Remoção por ID
     matchmaking->removePlayer(1); // Remove Ana
-    std::cout << "--- Apos remover ID 1 (Ana) ---" << std::endl;
+    std::cout << "\n--- Apos remover ID 1 (Ana) ---" << std::endl;
     matchmaking->printWaitingPlayers();
 
     // 6. Recuperação de dados via getWaitingPlayers
@@ -67,7 +67,7 @@ void testFuncional() {
 }
 
 void testDesempenho() {
-    std::cout << "========== TABELA DE DESEMPENHO ==========" << std::endl;
+    std::cout << "\n========== TABELA DE DESEMPENHO ==========" << std::endl;
     std::cout << "N\t\t| Insertion Sort (ms)\t| Merge Sort (ms)" << std::endl;
     std::cout << "----------------------------------------------------------" << std::endl;
 
