@@ -24,7 +24,7 @@ bool Matchmaking::removePlayer(int id){
 
     for (int i = 0; i < size; i++){
         if (this->players[i].getId() == id){
-            for (int j = i; j < size; j++) {
+            for (int j = i; j < size - 1; j++) {
                 // Dando um shift pra esquerda nos players que estavam à direita do que foi removido
                 this->players[j] = this->players[j+1];
             }
@@ -164,16 +164,24 @@ Player* Matchmaking::formGroup(int groupSize, int delta, int* n){
 }
 
 Player* Matchmaking::getWaitingPlayers(int* n){
-    if (this->size == 0) {
+    // caso de ponteiro nulo
+    if (n == nullptr) {
+        return nullptr;
+    }
+
+    // fila vazia
+    if (this->size <= 0) {
         *n = 0;
         return nullptr;
     }
+
     *n = this->size;
-    Player* copy = new Player[this->size];
+    Player* copyArray = new Player[this->size];
+
     for (int i = 0; i < this->size; i++) {
-        copy[i] = this->players[i];
+        copyArray[i] = this->players[i];
     }
-    return copy;
+    return copyArray;
 }
 
 void Matchmaking::printWaitingPlayers() {
